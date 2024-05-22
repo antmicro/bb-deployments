@@ -84,7 +84,7 @@ services:
         propagation: shared
 
   runner-fuse-ubuntu22-04:
-    image: ghcr.io/catthehacker/ubuntu:act-22.04@sha256:5f9c35c25db1d51a8ddaae5c0ba8d3c163c5e9a4a6cc97acd409ac7eae239448
+    image: ghcr.io/antmicro/openroad-flow-scripts/ubuntu22.04@sha256:ef18800147f1b09fd00366c32b2266da4944d59d588680ed05d2685fbae2531a
     command:
     - sh
     - -c
@@ -99,30 +99,5 @@ services:
       bind:
         # HostToContainer mount to use the FUSE mount.
         propagation: slave
-    depends_on:
-    - runner-installer
-
-  # For situations where the more efficient FUSE worker is not supported,
-  # the classic hardlinking example is shown here.
-  worker-hardlinking-ubuntu22-04:
-    image: ghcr.io/buildbarn/bb-worker:20240310T090416Z-28dbdbb
-    command:
-    - /config/worker-hardlinking-ubuntu22-04.jsonnet
-    privileged: false
-    volumes:
-    - ./config:/config
-    - ./volumes/worker-hardlinking-ubuntu22-04:/worker
-
-  runner-hardlinking-ubuntu22-04:
-    image: ghcr.io/catthehacker/ubuntu:act-22.04@sha256:5f9c35c25db1d51a8ddaae5c0ba8d3c163c5e9a4a6cc97acd409ac7eae239448
-    command:
-    - sh
-    - -c
-    - while ! test -f /bb/installed; do sleep 1; done; exec /bb/tini -v -- /bb/bb_runner /config/runner-ubuntu22-04.jsonnet
-    network_mode: none
-    volumes:
-    - ./config:/config
-    - ./volumes/bb:/bb
-    - ./volumes/worker-hardlinking-ubuntu22-04:/worker
     depends_on:
     - runner-installer
