@@ -71,7 +71,7 @@ local common = import 'common.libsonnet';
       platform: {
         properties: [
           { name: 'OSFamily', value: 'linux' },
-          { name: 'container-image', value: 'docker://ghcr.io/catthehacker/ubuntu:act-22.04@sha256:5f9c35c25db1d51a8ddaae5c0ba8d3c163c5e9a4a6cc97acd409ac7eae239448' },
+          { name: 'container-image', value: 'docker://ghcr.io/antmicro/openroad-flow-scripts/ubuntu22.04@sha256:ef18800147f1b09fd00366c32b2266da4944d59d588680ed05d2685fbae2531a' },
         ],
       },
       maximumFilePoolFileCount: 100000,
